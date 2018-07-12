@@ -1,0 +1,14 @@
+{
+  "name": "my-first-web-app",
+  "version": "1.0.0",
+  "description": "a chat app that is somewhat scalable",
+  "main": "gulp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "proj"
+  ],
+  "author": "Aliasger Rasheed",
+  "license": "ISC"
+}

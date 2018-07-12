@@ -1,0 +1,22 @@
+{
+  "name": "_2_",
+  "authors": [
+    "Aliasger R <alsman53@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    // "chat-window": "0.5.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.7",
+    "polymer-ts": "^0.2.3"
+  }
+}
