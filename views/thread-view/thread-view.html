@@ -1,0 +1,93 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../chat-view/chat-view.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="thread-view">
+  <template>
+    <style>
+/* paper-item */
+      * {
+        box-sizing: border-box;
+      }
+
+      :host {
+        display: flex;
+        --paper-listbox-background-color: lightgrey;
+      }
+
+      thread-view {
+        margin: inherit;
+        width: inherit;
+      }
+
+      chat-view {
+        flex-grow: 4;
+        flex-basis: 80%;
+      }
+
+      paper-fab {
+        /* flex-grow: 1; */
+        /* position: relative;
+        bottom: 0;
+         */
+        /* padding-bottom: 1rem; */
+        margin: 1rem;
+        width: 4rem;
+        height: 4rem;
+        --paper-fab-background: darkgrey;
+      }
+
+      #actualThread {
+        display: flex;
+        flex-grow: 1;
+        flex-basis: 20%;
+        flex-direction: column;
+        background: lightgrey;
+
+      }
+
+      #paper_LB {
+        flex-grow: 4;
+      }
+
+      #newCntctInpt {
+        display: none;
+        height: 3rem;
+        width: fit-content;
+      }
+
+      #inputCont {
+        /* display: flex; */
+        flex-direction: row;
+
+      }
+    </style>
+    <div id="actualThread">
+      <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{nameProjected}}" style="flex-grow:1">
+        <template is="dom-repeat" items="[[threadNames]]" id="chatUpdate">
+          <style is="custom-style">
+          </style>
+          <paper-item name=[[item.contactName]]>
+            [[item.contactName]]
+          </paper-item>
+        </template>
+        <paper-item name="Mike" >Mike </paper-item>
+        <paper-item name="Molly">Molly</paper-item>
+        <paper-item name="Peter">Peter</paper-item>
+        <paper-item name="Kevin">Kevin</paper-item>
+      </paper-listbox>
+      <div id="inputCont">
+        <paper-fab icon="add" mini on-click="newInput"></paper-fab>
+        <paper-input id="newCntctInpt"></paper-input>
+      </div>
+    </div>
+    <chat-view chat-name="[[nameProjected]]" transferArray={{threadNames}}>
+    </chat-view>
+  </template>
+</dom-module>
+<script type="text/javascript" src="thread-view.js"></script>

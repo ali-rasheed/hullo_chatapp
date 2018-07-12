@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../bower_components\paper-toolbar\paper-toolbar.html">
+<link rel="import" href="../thread-view/thread-view.html">
+
+
+
+<dom-module id="message-view">
+    <template>
+        <style>
+            :host {
+                margin: auto;
+                width: 80%;
+            }
+
+            paper-toolbar {
+                --paper-toolbar-background: rgb(38, 180, 161);
+                width: inherit;
+                margin: inherit;
+            }
+            thread-view{width: inherit; margin: auto;}
+        </style>
+        <paper-toolbar>
+            <span slot="top" class="title">[[nameTitle]]</span>
+        </paper-toolbar>
+        <thread-view name-projected={{nameTitle}}></thread-view>
+    </template>
+</dom-module>
+<script type="text/javascript" src="message-view.js"></script>
