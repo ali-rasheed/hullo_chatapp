@@ -9,9 +9,81 @@
 <dom-module id="chat-view">
   <template>
     <style>
+      p.author {
+        font-size: 0.9em;
+        margin-bottom: 0;
+        /* position: relative; */
+        /* right: 1rem; */
+      }
+
+      p.text {
+        font-size: 0.8em;
+        margin-top: 0.2rem;
+        color: gray;
+      }
+
+      div {
+        display: flex;
+      }
+
+      paper-input {
+        background: rgb(38, 180, 161);
+        flex-basis: 95%;
+      }
+
+      paper-button {
+        /* color: ; */
+        flex-basis: 5%;
+        background: rgb(38, 180, 161);
+      }
+
+      #inputStuff {
+        padding-left: 1rem;
+        display: flex;
+        background: rgb(38, 180, 161);
+      }
+
+      .msgsDisplay {
+        display: block;
+        /* position: relative; */
+        position: absolute;
+        right: auto;
+        left: 2rem;
+      }
+      .Me{
+        padding-right: 0;
+        padding-left: auto;
+        text-align: right;
+        position: relative;
+        right: 0;
+        left: auto;
+
+      }
+      .msgsDisplay p {
+        /* position: static; */
+        position: relative;
+        right: auto;
+        left: auto;
+      }
+
+      .container {
+        display: block;
+        position: static;
+        height: 4rem;
+      }
+
+
+
+      iron-icon {
+        --iron-icon-fill-color: seagreen;
+        --iron-icon-stroke-color: seagreen;
+      }
+
       paper-dialog-scrollable {
         position: relative;
         width: inherit;
+        height: 100%;
+
       }
 
       paper-input {
@@ -22,106 +94,24 @@
         width: inherit;
       }
 
-      #scrollable {
-        height: auto;
-      }
-
-      .paper-dialog-scrollable-0 .fit.paper-dialog-scrollable {
-        height: auto;
-      }
 
       /* #input {} */
     </style>
     <paper-dialog-scrollable>
-      <template is="dom-repeat" items="{{msgsSelected}}" id="chatUpdate">
-        <style is="custom-style">
-          p.author {
-            font-size: 0.9em;
-            margin-bottom: 0;
-            /* position: relative; */
-            /* right: 1rem; */
-          }
-
-          p.text {
-            font-size: 0.8em;
-            margin-top: 0.2rem;
-            color: gray;
-          }
-
-          div {
-            display: flex;
-          }
-
-          paper-input {
-            background: rgb(38, 180, 161);
-            flex-basis: 95%;
-          }
-
-          paper-button {
-            /* color: ; */
-            flex-basis: 5%;
-            background:rgb(38, 180, 161);
-          }
-
-          #inputStuff { padding-left: 1rem;
-            display: flex;
-          background: rgb(38, 180, 161);
-          }
-
-          .msgsDisplay {
-            display: block;
-            /* position: relative; */
-            position: absolute;
-            right: auto;
-            left: 2rem;
-          }
-
-          .msgsDisplay p {
-            /* position: static; */
-            position: relative;
-            right: auto;
-            left: auto;
-          }
-
-          .container {
-            display: block;
-            position: static;
-            height: 4rem;
-          }
-
-          .me {
-            right: 2rem;
-            left: auto;
-          }
-
-          .me .author {
-            padding-right: 0;
-            padding-left: auto;
-            text-align: right;
-            position: relative;
-            right: 0;
-            left: auto;
-
-          }
-          iron-icon{
-            --iron-icon-fill-color:seagreen;
-            --iron-icon-stroke-color:seagreen;
-          }
-        </style>
+      <template is="dom-repeat" items="[[currMessages]]" id="chatUpdate">
         <div class="container">
           <div class$="msgsDisplay [[item.author]]">
             <p class="author">[[item.author]]</p>
-            <p class="text">[[item.msg_val]]</p>
+            <p class="text">[[item.value]]</p>
           </div>
         </div>
       </template>
     </paper-dialog-scrollable>
     <div id="inputStuff">
-      <paper-input id="input_val" label="New Message..."></paper-input>
-      <paper-button icon="send" on-click="sendMsg">
-        <!-- <iron-icon icon="send">< /iron-icon> -->
-      </paper-button>
+      <paper-input id="inputVal" label="New Message..."></paper-input>
+      <paper-fab icon="send" on-click="sendMsg">
+      </paper-fab>
     </div>
   </template>
 </dom-module>
-<script type="text/javascript" src="chat-view.js"></script>
+<!-- <script type="text/javascript" src="chat-view.js"></script> -->

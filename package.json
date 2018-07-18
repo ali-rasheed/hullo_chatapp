@@ -10,5 +10,20 @@
     "proj"
   ],
   "author": "Aliasger Rasheed",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "common-js": "^0.3.8",
+    "gulp": "^3.9.1",
+    "rquirejs": "^0.1.9",
+    "typescript": "^2.3.1",
+    "webpack-require": "0.0.16"
+  },
+  "devDependencies": {
+    "event-stream": "^3.3.4",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-vulcanize": "^6.1.0",
+    "gulpclass": "^0.1.2",
+    "webpack-stream": "^3.2.0"
+  }
 }

@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 <link rel="import" href="../../bower_components\paper-toolbar\paper-toolbar.html">
 <link rel="import" href="../thread-view/thread-view.html">
-
+<link rel="import" href="../chat-view/chat-view.html">
 
 
 <dom-module id="message-view">
@@ -21,9 +21,12 @@
             thread-view{width: inherit; margin: auto;}
         </style>
         <paper-toolbar>
-            <span slot="top" class="title">[[nameTitle]]</span>
+            <span slot="top" class="title">[[currContact]]</span>
         </paper-toolbar>
-        <thread-view name-projected={{nameTitle}}></thread-view>
+        <thread-view name-projected="{currContact}" thread-names="{{threadNames}}"></thread-view>
+        <chat-view chat-arr="{{convoArr}}" curr-contact="[[currContact]]">
+        </chat-view>
+    
     </template>
 </dom-module>
-<script type="text/javascript" src="message-view.js"></script>
+<!-- <script type="text/javascript" src="message-view.js"></script> -->

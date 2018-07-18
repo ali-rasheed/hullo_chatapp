@@ -8,10 +8,8 @@ export class Message {
     }
 }
 
-export class MessageFactory{
-    public create(obj : any): Message{
-        let author = obj.author;
-        let value = obj.value;
-        return new Message(author, value);
+export class MessageFactory {
+    public create(obj: any): Message {
+        return new Message(obj.author, obj.value);
     }
 }

@@ -5,8 +5,11 @@ class ThreadView extends polymer.Base {
 
   @property({ type: String, notify: true })
   nameProjected: string;
-  @property({ notify: true })
-  threadNames=[];
+  @property({ notify: true , type: Array})
+  threadNames;
+  // @property({ notify: true })
+  // threadNames;
+  
   // test() {
   //   console.log(document.getElementById("paper_LB").name);
   //   console.log(this.nameProjected);

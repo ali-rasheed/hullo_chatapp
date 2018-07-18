@@ -1,3 +1,0 @@
- interface contactTemplate{
-createContact();
-}
