@@ -9,80 +9,38 @@
 <dom-module id="thread-view">
   <template>
     <style>
-      * {
-        box-sizing: border-box;
+      paper-input {
+        display: inline-block;
       }
 
       :host {
-        display: flex;
-        --paper-listbox-background-color: lightgrey;
+        flex-basis: 25%;
       }
 
-      thread-view {
-        margin: inherit;
-        width: inherit;
-      }
-
-      chat-view {
-        flex-grow: 4;
-        flex-basis: 80%;
-      }
-
-      paper-fab {
-        /* flex-grow: 1; */
-        /* position: relative;
-        bottom: 0;
-         */
-        /* padding-bottom: 1rem; */
-        margin: 1rem;
-        width: 4rem;
-        height: 4rem;
-        --paper-fab-background: darkgrey;
-      }
-
-      #actualThread {
-        display: flex;
-        flex-grow: 1;
-        flex-basis: 20%;
-        flex-direction: column;
-        background: lightgrey;
-
-      }
-
-      #paper_LB {
-        flex-grow: 4;
-      }
-
-      #newCntctInpt {
+      #newInput {
         display: none;
         height: 3rem;
         width: fit-content;
       }
 
       #inputCont {
-        /* display: flex; */
-        flex-direction: row;
-
+        display: none;
+        
       }
     </style>
-      <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{nameProjected}}" style="flex-grow:1">
-        <template is="dom-repeat" items="[[threadNames]]" id="chatUpdate">
-          <style is="custom-style">
-          </style>
-          <paper-item name=[[item.name]]>
-            [[item.name]]
-          </paper-item>
-        </template>
-        <paper-item name="Mike" >Mike </paper-item>
-        <paper-item name="Molly">Molly</paper-item>
-        <paper-item name="Peter">Peter</paper-item>
-        <paper-item name="Kevin">Kevin</paper-item>
-      </paper-listbox>
-      <div id="inputCont">
-        <paper-fab icon="add" mini on-click="newInput"></paper-fab>
-        <paper-input id="newCntctInpt"></paper-input>
-      </div>
+    <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{nameSelected}}" style="flex-grow:1">
+      <template is="dom-repeat" items="[[threadNames]]" id="chatUpdate">
+        <style is="custom-style">
+        </style>
+        <paper-item name=[[item]]>
+          [[item]]
+        </paper-item>
+      </template>
+    </paper-listbox>
+    <paper-fab icon="add" mini on-tap="showInput"></paper-fab>
+    <div id="inputCont">
+      <paper-input id="inputVal"></paper-input>
+      <paper-fab icon="send" mini on-tap="createCont" </div>
     </div>
   </template>
 </dom-module>
-<!-- <script type="text/javascript" src="thread-view.js"></script> -->

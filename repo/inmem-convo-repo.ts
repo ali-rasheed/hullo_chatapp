@@ -1,44 +1,49 @@
 import { Contact, ContactFactory } from "../entities/contact";
 import { Message, MessageFactory } from "../entities/Message";
-import { Contacts } from "../data/contData"
+import { Contacts } from "../assets/contData"
+/// <reference path="../bower_components/polymer-ts/polymer-ts.d.ts" />
 
-interface ConverationRepository {
+
+export interface ConverationRepository {
+    convos : Array<any>;
     add(contact: Contact);
     addMessage(name: string, message: Message);
+    seedDb();
+
 }
 
 export class InMemConvRepo implements ConverationRepository {
-    inMemConvo: Array<Contact>;
+    convos: Array<Contact>;
 
     constructor() {
-        this.inMemConvo = [];
+        this.convos = [];
         this.seedDb();
     }
 
-    add(contact: Contact) {
-        this.inMemConvo.push(contact);
+    add(contact: Contact) :Contact{
+        this.convos.push(contact);
+        return contact;
     };
 
-    addMessage(name: string, message: Message) {
-        for (let contact of this.inMemConvo) {
+    addMessage(name: string, message: Message) : Message {
+        for (let contact of this.convos) {
             if (contact.name = name) {
                 contact.messages.push(message);
             }
         }
+        return message;
     };
-    getNames(): Array<string> {
-        let nameArr: Array<string> = [];
-        for (let convo of this.inMemConvo) {
-            nameArr.push(convo.name);
-        }
-        return nameArr;
-    }
+
+    // getNames(): Array<string> {
+    //     return this.convos.map(c => c.name);
+    // }
+
     seedDb() {
         let jsonConvos = Contacts;
         let contactFactory = new ContactFactory();
 
         jsonConvos.contacts.forEach(contact => {
-            this.inMemConvo.push(contactFactory.create(contact))
+            this.convos.push(contactFactory.create(contact))
         });
     }
 }

@@ -9,24 +9,37 @@
     <template>
         <style>
             :host {
-                margin: auto;
+                /* margin: auto;
                 width: 80%;
+                display: flex; */
+            min-height: 70%;
+            
             }
 
             paper-toolbar {
                 --paper-toolbar-background: rgb(38, 180, 161);
-                width: inherit;
-                margin: inherit;
+                /* width: inherit;
+                margin: inherit; */
+                height: 4rem;
             }
-            thread-view{width: inherit; margin: auto;}
+
+            thread-view {
+                /* width: inherit;
+                margin: auto; */
+            }
+
+            .container {
+                display: flex;
+            }
+            .title{font-size: 2rem;}
         </style>
         <paper-toolbar>
             <span slot="top" class="title">[[currContact]]</span>
         </paper-toolbar>
-        <thread-view name-projected="{currContact}" thread-names="{{threadNames}}"></thread-view>
-        <chat-view chat-arr="{{convoArr}}" curr-contact="[[currContact]]">
-        </chat-view>
-    
+        <div class="container">
+            <thread-view name-selected="{{currContact}}" thread-names="[[getThreadNames(conversationViewModel)]]"></thread-view>
+            <chat-view curr-messages="{{selectedConversation.messages}}">
+            </chat-view>
+        </div>
     </template>
 </dom-module>
-<!-- <script type="text/javascript" src="message-view.js"></script> -->

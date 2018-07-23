@@ -2,32 +2,25 @@
 
 @component("thread-view")
 class ThreadView extends polymer.Base {
-
   @property({ type: String, notify: true })
-  nameProjected: string;
-  @property({ notify: true , type: Array})
-  threadNames;
-  // @property({ notify: true })
-  // threadNames;
-  
-  // test() {
-  //   console.log(document.getElementById("paper_LB").name);
-  //   console.log(this.nameProjected);
-  // }
+  nameSelected: string;
 
+  @property({ notify: true, type: Array })
+  threadNames: string[]
 
-  newInput() {
-    console.log("abc");
-    var x = this.$$("#newCntctInpt");
-    if (x.style.display === "block") {
-
+  showInput() {
+    var x = this.$$("#inputCont");
+    if (x.style.display === "flex") {
       x.style.display = "none";
     } else {
-      x.style.display = "block";
+      x.style.display = "flex";
     }
   }
-}
 
-console.log('thread');
-// after the element is defined, we register it in Polymer
+  createCont(e, detail) {
+    let inputVal = this.$$("#inputVal") as any;
+    this.fire("creatingCont", { name: inputVal.value });
+    inputVal.value = "";
+  }
+}
 ThreadView.register();

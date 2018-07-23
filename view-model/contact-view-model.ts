@@ -11,13 +11,13 @@ export class ContactViewModel {
 } 
 
 export class ContactViewModelFactory {
-     public create(obj: any): ContactViewModel {
-         let name = obj.name;
-         let messages = [];
-         
-         obj.messages && obj.messages.forEach(message => {
-             messages.push(new MessageViewModelFactory().create(message));
-         });
-         return new ContactViewModel(name, messages);
-     };
- }
+    public create(obj: any): ContactViewModel {
+        let name = obj.name;
+        let messages = [];
+        
+        obj.messages && obj.messages.forEach(message => {
+            messages.push(new MessageViewModelFactory().create(message));
+        });
+        return new ContactViewModel(name, messages);
+    };
+}
