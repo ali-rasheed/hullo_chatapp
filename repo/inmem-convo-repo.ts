@@ -20,6 +20,10 @@ export class InMemConvRepo implements ConverationRepository {
         this.seedDb();
     }
 
+    getAllContacts() {
+        return this.convos;
+    }
+
     add(contact: Contact) :Contact{
         this.convos.push(contact);
         return contact;

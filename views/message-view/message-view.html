@@ -13,7 +13,7 @@
                 width: 80%;
                 display: flex; */
             min-height: 70%;
-            
+
             }
 
             paper-toolbar {
@@ -37,8 +37,8 @@
             <span slot="top" class="title">[[currContact]]</span>
         </paper-toolbar>
         <div class="container">
-            <thread-view name-selected="{{currContact}}" thread-names="[[getThreadNames(conversationViewModel)]]"></thread-view>
-            <chat-view curr-messages="{{selectedConversation.messages}}">
+            <thread-view selected-name="{{selectedName}}" contacts="[[contactsVM]]"></thread-view>
+            <chat-view curr-messages="{{selectedContact.messages}}">
             </chat-view>
         </div>
     </template>

@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "paper-elements": "PolymerElements/paper-elements#^1.0.7",
-    "polymer-ts": "^0.2.3"
+    "polymer-ts": "^0.2.3",
+    "iron-icons": "^2.1.1"
   }
 }

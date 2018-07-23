@@ -25,11 +25,11 @@
 
       #inputCont {
         display: none;
-        
+
       }
     </style>
-    <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{nameSelected}}" style="flex-grow:1">
-      <template is="dom-repeat" items="[[threadNames]]" id="chatUpdate">
+    <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{selectedName}}" style="flex-grow:1">
+      <template restamp is="dom-repeat" items="[[getNames(contacts)]]" id="chatUpdate">
         <style is="custom-style">
         </style>
         <paper-item name=[[item]]>
@@ -40,7 +40,7 @@
     <paper-fab icon="add" mini on-tap="showInput"></paper-fab>
     <div id="inputCont">
       <paper-input id="inputVal"></paper-input>
-      <paper-fab icon="send" mini on-tap="createCont" </div>
+      <paper-fab icon="send" mini on-tap="createCont"></paper-fab>
     </div>
   </template>
 </dom-module>

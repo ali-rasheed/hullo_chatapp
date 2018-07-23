@@ -1,12 +1,19 @@
 /// <reference path="../../bower_components/polymer-ts/polymer-ts.d.ts" />
 
+import { ContactViewModel } from "../../view-model/contact-view-model";
+import { SSL_OP_TLS_BLOCK_PADDING_BUG } from "constants";
+
 @component("thread-view")
 class ThreadView extends polymer.Base {
   @property({ type: String, notify: true })
-  nameSelected: string;
-
+  selectedName: string;
   @property({ notify: true, type: Array })
-  threadNames: string[]
+  contacts: ContactViewModel[];
+
+  @observe("contacts.*")
+  logg() {
+    console.log("contacts", this.contacts);
+  }
 
   showInput() {
     var x = this.$$("#inputCont");
@@ -21,6 +28,10 @@ class ThreadView extends polymer.Base {
     let inputVal = this.$$("#inputVal") as any;
     this.fire("creatingCont", { name: inputVal.value });
     inputVal.value = "";
+  }
+
+  getNames(contacts) {
+    return contacts.map(c => c.name);
   }
 }
 ThreadView.register();
