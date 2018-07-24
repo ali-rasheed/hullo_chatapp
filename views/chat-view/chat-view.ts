@@ -9,13 +9,6 @@ class ChatView extends polymer.Base {
   @observe("currMessages")
   changeView(newValue, oldValue) {
     console.log("currMessages=> ", this.currMessages);
-    // let messageDisplay = this.$$("#chatUpdate") as any;
-    // messageDisplay.render;
-//  this.$.chatUpdate.render();
-//  this.notifyPath("currMessages", this.currMessages);
-// var cMsg = this.currMessages;
-// this.currMessages= [];
-// this.currMessages = cMsg;
   }
 
 

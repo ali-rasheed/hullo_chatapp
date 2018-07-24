@@ -2,8 +2,7 @@
 
 import { Contact } from "../../entities/contact";
 import { InMemConvoRepository } from "../../repo/in-mem-convo-repository";
-
-import { ContactViewModel, ContactViewModelFactory } from "../../view-model/contact-view-model";
+import { ContactViewModel, ContactViewModelFactory } from"../../view-model/contact-view-model";
 import { MessageViewModel, MessageViewModelFactory } from "../../view-model/message-view-model";
 import { ContactValidator } from "../../entities/validators/contact-validator";
 import { newMessageIntent } from "../../intents/new-message-intent";
@@ -14,9 +13,6 @@ import { MessageValidator } from "../../entities/validators/message-validator";
 @component("message-view")
 class MessageView extends polymer.Base {
     public contactsRepo: InMemConvoRepository;
-
-    // @property({ type: String, notify: true })
-    // currContact: string;
     @property({ notify: true, type: Array })
     contactsVM: ContactViewModel[];
     @property({ notify: true, type: String })
@@ -34,8 +30,6 @@ class MessageView extends polymer.Base {
         this.contactsVM = [];
         this.createConvViewModel();
         this.set("selectedContact", this.contactsVM[0]);
-        // console.log("init contactsVM => ", this.contactsVM);
-        // console.log("selected Conversation", this.selectedContact);
     }
 
     @listen("sendingMsg")
@@ -51,24 +45,12 @@ class MessageView extends polymer.Base {
         console.log("added vm", finalVModel);
 
         this.contactsVM.forEach((conversation, index) => {
-
             console.log("current array name: ", conversation.name);
             console.log("current selected name: ", this.selectedContact.name);
-            // var that = this;
             if (conversation.name == this.selectedContact.name) {
                 this.contactsVM[index].messages.push(finalVModel);
-                // this.push( "contactsVM[index].messages", this.contactsVM[index].messages);
                 this.notifyPath("contactsVM["+index+"].messages", this.contactsVM[index].messages); 
-
-                // this.notifyPath("contactsVM["+index+"].messages", this.contactsVM[index].messages); 
-                this.selectedContact = this.contactsVM.filter(c => c.name == this.selectedName)[0];
-
-                // this.notifyPath("contactsVM[index].messages", ); 
-                // this.notifyPath("contactsVM[index].messages", );
-                // var arr = this.contactsVM[index].messages;
-                // this.contactsVM[index].messages= [];
-                // this.set("contactsVM[index].messages",  arr);
-                console.log("done");
+                console.log("new message to contact connected");
             }
         });
         console.log("updated CVM", this.contactsVM);
@@ -81,11 +63,11 @@ class MessageView extends polymer.Base {
         let newContVModel: ContactViewModel = new ContactViewModelFactory().create(obj);
         let newCont: Contact = new ContactValidator().sanitize(newContVModel);
         new NewContactIntent().add(newCont, this.contactsRepo);
-        console.log("new contact", newContVModel);
+        console.log("new contact: ", newContVModel);
         console.log("contactsVM before", this.contactsVM)
-        this.push("contactsVM", newContVModel);
-        console.log("contactsVM after", this.contactsVM)
+        this.push("contactsVM", newContVModel);       
         this.notifyPath("contactsVm", this.contactsVM);
+        console.log("contactsVM after", this.contactsVM)
     }
 
     createConvViewModel() {

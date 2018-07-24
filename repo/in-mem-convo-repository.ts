@@ -1,6 +1,6 @@
 import { Contact, ContactFactory } from "../entities/contact";
-import { Message, MessageFactory } from "../entities/Message";
-import { Contacts } from "../assets/contData"
+import { Message } from "../entities/Message";
+import { ContactsData } from "../assets/contactsData"
 /// <reference path="../bower_components/polymer-ts/polymer-ts.d.ts" />
 
 
@@ -40,7 +40,7 @@ export class InMemConvoRepository implements ConverationRepository {
 
 
     seedDb() {
-        let jsonConvos = Contacts;
+        let jsonConvos = ContactsData;
         let contactFactory = new ContactFactory();
 
         jsonConvos.contacts.forEach(contact => {

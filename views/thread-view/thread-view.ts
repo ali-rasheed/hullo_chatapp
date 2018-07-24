@@ -1,7 +1,6 @@
 /// <reference path="../../bower_components/polymer-ts/polymer-ts.d.ts" />
 
 import { ContactViewModel } from "../../view-model/contact-view-model";
-import { SSL_OP_TLS_BLOCK_PADDING_BUG } from "constants";
 
 @component("thread-view")
 class ThreadView extends polymer.Base {
@@ -11,7 +10,7 @@ class ThreadView extends polymer.Base {
   contacts: ContactViewModel[];
 
   @observe("contacts.*")
-  logg() {
+  log() {
     this.$.threadUpdate.render();
   }
 

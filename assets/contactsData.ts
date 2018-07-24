@@ -1,4 +1,4 @@
-export var Contacts = {
+export var ContactsData = {
         "contacts": [
                 {
                         "name": "Mike",
