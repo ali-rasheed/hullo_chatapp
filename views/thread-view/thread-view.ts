@@ -12,7 +12,7 @@ class ThreadView extends polymer.Base {
 
   @observe("contacts.*")
   logg() {
-    console.log("contacts", this.contacts);
+    this.$.threadUpdate.render();
   }
 
   showInput() {
@@ -28,6 +28,7 @@ class ThreadView extends polymer.Base {
     let inputVal = this.$$("#inputVal") as any;
     this.fire("creatingCont", { name: inputVal.value });
     inputVal.value = "";
+
   }
 
   getNames(contacts) {

@@ -16765,7 +16765,7 @@ function observe(observedProps) {
       }
     </style>
     <paper-listbox id="paper_LB" attr-for-selected="name" selected="{{selectedName}}" style="flex-grow:1">
-      <template restamp="" is="dom-repeat" items="[[getNames(contacts)]]" id="chatUpdate">
+      <template restamp="" is="dom-repeat" items="[[getNames(contacts)]]" id="threadUpdate">
         <style is="custom-style">
         </style>
         <paper-item name="[[item]]">
@@ -21223,10 +21223,6 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 <dom-module id="chat-view" assetpath="views/chat-view/">
   <template>
     <style>
-      * {
-        /* box-sizing: border-box; */
-      }
-
       :host {
         flex-basis: 80%;
         display: flex;
@@ -21245,20 +21241,13 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         margin-top: 0.2rem;
         color: gray;
       }
-
-      div {
-        /* display: flex; */
-      }
-
-
-
       .msgsDisplay {
         additive-symbols: block;
         position: relative;
         position: absolute;
         right: auto;
-      }
         left: 2rem;
+      }
       .Me {
         padding-right: 0;
         padding-left: auto;
@@ -21315,7 +21304,8 @@ is separate from validation, and `allowed-pattern` does not affect how the input
       }
     </style>
     <paper-dialog-scrollable>
-      <template is="dom-repeat" items="[[currMessages]]" id="chatUpdate">
+      <template is="dom-repeat" items="{{currMessages}}" id="chatUpdate">
+        <p>uiuhkj [[item]]</p>
         <div class="container">
           <div class$="msgsDisplay [[item.author]]">
             <p class="author">[[item.author]]</p>
@@ -21338,19 +21328,11 @@ is separate from validation, and `allowed-pattern` does not affect how the input
                 width: 80%;
                 display: flex; */
             min-height: 70%;
-
             }
 
             paper-toolbar {
                 --paper-toolbar-background: rgb(38, 180, 161);
-                /* width: inherit;
-                margin: inherit; */
                 height: 4rem;
-            }
-
-            thread-view {
-                /* width: inherit;
-                margin: auto; */
             }
 
             .container {
@@ -21359,7 +21341,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
             .title{font-size: 2rem;}
         </style>
         <paper-toolbar>
-            <span slot="top" class="title">[[currContact]]</span>
+            <span slot="top" class="title">[[selectedName]]</span>
         </paper-toolbar>
         <div class="container">
             <thread-view selected-name="{{selectedName}}" contacts="[[contactsVM]]"></thread-view>
@@ -21504,13 +21486,13 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var inmem_convo_repo_1 = __webpack_require__(3);
+	var in_mem_convo_repository_1 = __webpack_require__(3);
 	var contact_view_model_1 = __webpack_require__(7);
 	var message_view_model_1 = __webpack_require__(8);
-	var cont_validator_1 = __webpack_require__(9);
-	var new_msg_1 = __webpack_require__(10);
-	var new_cont_1 = __webpack_require__(11);
-	var msg_validator_1 = __webpack_require__(12);
+	var contact_validator_1 = __webpack_require__(9);
+	var new_message_intent_1 = __webpack_require__(10);
+	var new_contact_intent_1 = __webpack_require__(11);
+	var message_validator_1 = __webpack_require__(12);
 	var MessageView = (function (_super) {
 	    __extends(MessageView, _super);
 	    function MessageView() {
@@ -21521,26 +21503,28 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	        this.selectedContact = this.contactsVM.filter(function (c) { return c.name == _this.selectedName; })[0];
 	    };
 	    MessageView.prototype.ready = function () {
-	        this.contactsRepo = new inmem_convo_repo_1.InMemConvRepo();
+	        this.contactsRepo = new in_mem_convo_repository_1.InMemConvoRepository();
 	        this.contactsVM = [];
 	        this.createConvViewModel();
 	        this.set("selectedContact", this.contactsVM[0]);
-	        console.log("init contactsVM => ", this.contactsVM);
-	        console.log("selected Conversation", this.selectedContact);
 	    };
 	    MessageView.prototype.addnewMessage = function (e) {
 	        var _this = this;
 	        var obj = new Object;
 	        obj.value = e.detail.message, obj.author = "Me";
 	        var newMsgVModel = new message_view_model_1.MessageViewModelFactory().create(obj);
-	        var newMsg = new msg_validator_1.MessageValidator().sanitize(newMsgVModel);
-	        var sentMsg = new new_msg_1.newMessage().add(this.currContact, newMsg, this.contactsRepo);
+	        var newMsg = new message_validator_1.MessageValidator().sanitize(newMsgVModel);
+	        var sentMsg = new new_message_intent_1.newMessageIntent().add(this.selectedName, newMsg, this.contactsRepo);
 	        var finalVModel = new message_view_model_1.MessageViewModelFactory().create(sentMsg);
 	        console.log("added vm", finalVModel);
 	        this.contactsVM.forEach(function (conversation, index) {
-	            if (conversation.name == _this.currContact) {
+	            console.log("current array name: ", conversation.name);
+	            console.log("current selected name: ", _this.selectedContact.name);
+	            if (conversation.name == _this.selectedContact.name) {
 	                _this.contactsVM[index].messages.push(finalVModel);
-	                _this.notifyPath("contactsVM", _this.contactsVM);
+	                _this.notifyPath("contactsVM[" + index + "].messages", _this.contactsVM[index].messages);
+	                _this.selectedContact = _this.contactsVM.filter(function (c) { return c.name == _this.selectedName; })[0];
+	                console.log("done");
 	            }
 	        });
 	        console.log("updated CVM", this.contactsVM);
@@ -21549,8 +21533,8 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	        var obj = new Object;
 	        obj.name = e.detail.name;
 	        var newContVModel = new contact_view_model_1.ContactViewModelFactory().create(obj);
-	        var newCont = new cont_validator_1.ContactValidator().sanitize(newContVModel);
-	        new new_cont_1.NewContact().add(newCont, this.contactsRepo);
+	        var newCont = new contact_validator_1.ContactValidator().sanitize(newContVModel);
+	        new new_contact_intent_1.NewContactIntent().add(newCont, this.contactsRepo);
 	        console.log("new contact", newContVModel);
 	        console.log("contactsVM before", this.contactsVM);
 	        this.push("contactsVM", newContVModel);
@@ -21566,10 +21550,6 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	    };
 	    return MessageView;
 	}(polymer.Base));
-	__decorate([
-	    property({ type: String, notify: true }),
-	    __metadata("design:type", String)
-	], MessageView.prototype, "currContact", void 0);
 	__decorate([
 	    property({ notify: true, type: Array }),
 	    __metadata("design:type", Array)
@@ -21614,20 +21594,20 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var contact_1 = __webpack_require__(4);
 	var contData_1 = __webpack_require__(6);
-	var InMemConvRepo = (function () {
-	    function InMemConvRepo() {
+	var InMemConvoRepository = (function () {
+	    function InMemConvoRepository() {
 	        this.convos = [];
 	        this.seedDb();
 	    }
-	    InMemConvRepo.prototype.getAllContacts = function () {
+	    InMemConvoRepository.prototype.getAllContacts = function () {
 	        return this.convos;
 	    };
-	    InMemConvRepo.prototype.add = function (contact) {
+	    InMemConvoRepository.prototype.add = function (contact) {
 	        this.convos.push(contact);
 	        return contact;
 	    };
 	    ;
-	    InMemConvRepo.prototype.addMessage = function (name, message) {
+	    InMemConvoRepository.prototype.addMessage = function (name, message) {
 	        for (var _i = 0, _a = this.convos; _i < _a.length; _i++) {
 	            var contact = _a[_i];
 	            if (contact.name = name) {
@@ -21637,7 +21617,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	        return message;
 	    };
 	    ;
-	    InMemConvRepo.prototype.seedDb = function () {
+	    InMemConvoRepository.prototype.seedDb = function () {
 	        var _this = this;
 	        var jsonConvos = contData_1.Contacts;
 	        var contactFactory = new contact_1.ContactFactory();
@@ -21645,9 +21625,9 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	            _this.convos.push(contactFactory.create(contact));
 	        });
 	    };
-	    return InMemConvRepo;
+	    return InMemConvoRepository;
 	}());
-	exports.InMemConvRepo = InMemConvRepo;
+	exports.InMemConvoRepository = InMemConvoRepository;
 
 
 /***/ }),
@@ -21830,15 +21810,15 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var newMessage = (function () {
-	    function newMessage() {
+	var newMessageIntent = (function () {
+	    function newMessageIntent() {
 	    }
-	    newMessage.prototype.add = function (name, msg, obj) {
+	    newMessageIntent.prototype.add = function (name, msg, obj) {
 	        return obj.addMessage(name, msg);
 	    };
-	    return newMessage;
+	    return newMessageIntent;
 	}());
-	exports.newMessage = newMessage;
+	exports.newMessageIntent = newMessageIntent;
 
 
 /***/ }),
@@ -21847,15 +21827,15 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var NewContact = (function () {
-	    function NewContact() {
+	var NewContactIntent = (function () {
+	    function NewContactIntent() {
 	    }
-	    NewContact.prototype.add = function (contact, obj) {
+	    NewContactIntent.prototype.add = function (contact, obj) {
 	        obj.add(contact);
 	    };
-	    return NewContact;
+	    return NewContactIntent;
 	}());
-	exports.NewContact = NewContact;
+	exports.NewContactIntent = NewContactIntent;
 
 
 /***/ }),
@@ -21910,7 +21890,7 @@ is separate from validation, and `allowed-pattern` does not affect how the input
 	        return _super !== null && _super.apply(this, arguments) || this;
 	    }
 	    ThreadView.prototype.logg = function () {
-	        console.log("contacts", this.contacts);
+	        this.$.threadUpdate.render();
 	    };
 	    ThreadView.prototype.showInput = function () {
 	        var x = this.$$("#inputCont");

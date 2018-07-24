@@ -1,7 +1,4 @@
 /// <reference path="../../bower_components/polymer-ts/polymer-ts.d.ts" />
-// import { Contact } from "../../entities/Contact";
-import { InMemConvRepo } from "../../repo/inmem-convo-repo";
-import { MessageFactory, Message } from "../../entities/Message";
 import { MessageViewModel } from "../../view-model/message-view-model";
 
 @component("chat-view")
@@ -12,6 +9,13 @@ class ChatView extends polymer.Base {
   @observe("currMessages")
   changeView(newValue, oldValue) {
     console.log("currMessages=> ", this.currMessages);
+    // let messageDisplay = this.$$("#chatUpdate") as any;
+    // messageDisplay.render;
+//  this.$.chatUpdate.render();
+//  this.notifyPath("currMessages", this.currMessages);
+// var cMsg = this.currMessages;
+// this.currMessages= [];
+// this.currMessages = cMsg;
   }
 
 

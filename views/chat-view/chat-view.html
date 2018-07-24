@@ -9,10 +9,6 @@
 <dom-module id="chat-view">
   <template>
     <style>
-      * {
-        /* box-sizing: border-box; */
-      }
-
       :host {
         flex-basis: 80%;
         display: flex;
@@ -31,20 +27,13 @@
         margin-top: 0.2rem;
         color: gray;
       }
-
-      div {
-        /* display: flex; */
-      }
-
-
-
       .msgsDisplay {
         additive-symbols: block;
         position: relative;
         position: absolute;
         right: auto;
-      }
         left: 2rem;
+      }
       .Me {
         padding-right: 0;
         padding-left: auto;
@@ -101,7 +90,8 @@
       }
     </style>
     <paper-dialog-scrollable>
-      <template is="dom-repeat" items="[[currMessages]]" id="chatUpdate">
+      <template is="dom-repeat" items="{{currMessages}}" id="chatUpdate">
+        <p>uiuhkj [[item]]</p>
         <div class="container">
           <div class$="msgsDisplay [[item.author]]">
             <p class="author">[[item.author]]</p>

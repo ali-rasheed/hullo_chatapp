@@ -12,7 +12,7 @@ export interface ConverationRepository {
 
 }
 
-export class InMemConvRepo implements ConverationRepository {
+export class InMemConvoRepository implements ConverationRepository {
     convos: Array<Contact>;
 
     constructor() {
@@ -38,9 +38,6 @@ export class InMemConvRepo implements ConverationRepository {
         return message;
     };
 
-    // getNames(): Array<string> {
-    //     return this.convos.map(c => c.name);
-    // }
 
     seedDb() {
         let jsonConvos = Contacts;

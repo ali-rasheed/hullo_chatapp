@@ -13,19 +13,11 @@
                 width: 80%;
                 display: flex; */
             min-height: 70%;
-
             }
 
             paper-toolbar {
                 --paper-toolbar-background: rgb(38, 180, 161);
-                /* width: inherit;
-                margin: inherit; */
                 height: 4rem;
-            }
-
-            thread-view {
-                /* width: inherit;
-                margin: auto; */
             }
 
             .container {
@@ -34,10 +26,11 @@
             .title{font-size: 2rem;}
         </style>
         <paper-toolbar>
-            <span slot="top" class="title">[[currContact]]</span>
+            <span slot="top" class="title">[[selectedName]]</span>
         </paper-toolbar>
         <div class="container">
-            <thread-view selected-name="{{selectedName}}" contacts="[[contactsVM]]"></thread-view>
+            <thread-view selected-name="{{selectedName}}" 
+            contacts="[[contactsVM]]"></thread-view>
             <chat-view curr-messages="{{selectedContact.messages}}">
             </chat-view>
         </div>
